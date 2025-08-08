@@ -2,13 +2,15 @@ import { HttpRequest, HttpResponse } from '../../interfaces';
 import User from '../../models/user-model';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
+import { Role } from '../../enums/role';
+
 class CriarUsuarioController {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { nome, email, senha } = httpRequest.body;
+      const { nome, email, senha, role } = httpRequest.body;
 
       // Verifica se todos os campos obrigatórios foram preenchidos
-      if (!nome || !email || !senha) {
+      if (!nome || !email || !senha || !role) {
         return {
           statusCode: 400,
           body: { error: 'Todos os campos são obrigatórios' },
@@ -21,6 +23,12 @@ class CriarUsuarioController {
           body: { error: 'O nome deve ter pelo menos 3 caracteres' },
         };
       }
+      if (!Object.values(Role).includes(role)) {
+        return {
+          statusCode: 400,
+          body: { error: `A role ${role} não existe nos papéis do sistema` },
+        }
+      };
 
       // Validação dos dados de entrada
       if(validator.isEmail(email) === false) {
@@ -46,6 +54,7 @@ class CriarUsuarioController {
         nome,
         email,
         senha: senhaCriptografada,
+        role,
       });
 
       return {

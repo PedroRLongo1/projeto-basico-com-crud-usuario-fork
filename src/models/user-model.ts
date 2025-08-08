@@ -6,6 +6,7 @@ export class User extends Model {
   email!: string;
   senha!: string;
   nome!: string;
+  role!: 'Gerente' | 'Administrador' | 'Funcionário' | 'Cliente';
 }
 
 User.init(
@@ -27,7 +28,12 @@ User.init(
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    role: {
+      type: DataTypes.ENUM('Gerente', 'Administrador', 'Funcionário', 'Cliente'),
+      allowNull: false,
+      defaultValue: 'Funcionário',
+    },
   },
   {
     sequelize,
