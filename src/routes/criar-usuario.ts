@@ -43,6 +43,44 @@ export default (router: Router): void => {
    *         senha: "123abc"
    *         email: "joao.silva@dominio.com"
    *         role: "Gerente"
+   *     Prato:
+   *       type: object
+   *       required:
+   *         - id
+   *         - nome
+   *         - cozinha
+   *         - descricao_resumida
+   *         - descricao_detalhada
+   *         - valor
+   *       properties:
+   *         id:
+   *           type: integer
+   *           description: O id do prato
+   *         nome:
+   *           type: string
+   *           description: O nome de usuário
+   *         cozinha:
+   *           type: string
+   *           description: A cozinha do prato
+   *         descricao_resumida:
+   *           type: string
+   *           description: A descrição resumida do prato
+   *         descricao_detalhada:
+   *           type: string
+   *           description: A descrição detalhada do prato
+   *         imagem:
+   *           type: string
+   *           description: A imagem do prato
+   *         valor:
+   *           type: number
+   *           description: O valor do prato
+   *       example:
+   *           nome: "Feijoada"
+   *           cozinha: "Brasileira"
+   *           descricao_resumida: "Feijoada tradicional brasileira"
+   *           descricao_detalhada: "Feijoada é um prato típico brasileiro, feito com feijão preto, carne de porco e acompanhamentos como arroz, farofa e couve."
+   *           imagem: "https://example.com/imagem-feijoada.jpg"
+   *           valor: 49.90
    */
 
   /**

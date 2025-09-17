@@ -8,34 +8,25 @@ export default (router: Router): void => {
    * @swagger
    * /api/pratos/{id}:
    *   get:
-   *     summary: Lista as informações de um prato
+   *     summary: Retorna a lista de pratos
    *     tags: [Pratos]
    *     security:
    *       - bearerAuth: []
-   *     requestBody:
-   *       required: true
-   *       content:
-   *        application/json:
-   *            schema:
-   *                type: object
-   *                required:
-   *                    - id
-   *                properties:
-   *                    nome:
-   *                        type: string
-   *                        description: O nome do prato
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: integer
+   *         required: false
+   *         description: O id do prato
    *     responses:
    *       200:
-   *         description: O prato foi retornado com sucesso
+   *         description: A lista de pratos foi retornada com sucesso
    *         content:
    *          application/json:
-   *           schema:
-   *             type: array
-   *             items:
-   *              $ref: '#/components/schemas/Pratos'
-   * 
-   *       500:
-   *         description: Algum erro aconteceu
+   *              schema:
+   *                $ref: '#/components/schemas/Prato'
+
    */
   router.get(
     "/pratos{/:id}",

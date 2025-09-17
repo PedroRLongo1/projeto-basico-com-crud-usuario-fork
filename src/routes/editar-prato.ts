@@ -20,14 +20,7 @@ export default (router: Router): void => {
    *       content:
    *        application/json:
    *            schema:
-   *              $ref: '#/#components/schemas/Prato'
-   *                example:
-   *                    nome: "Feijoada"
-   *                    cozinha: "Brasileira"
-   *                    descricao_resumida: "Feijoada tradicional brasileira"
-   *                    descricao_detalhada: "Feijoada é um prato típico brasileiro, feito com feijão preto, carne de porco e acompanhamentos como arroz, farofa e couve."
-   *                    imagem: "https://example.com/imagem-feijoada.jpg"
-   *                    valor: 49.90
+   *              $ref: '#/components/schemas/Prato'
    * 
    *     responses:
    *       200:
