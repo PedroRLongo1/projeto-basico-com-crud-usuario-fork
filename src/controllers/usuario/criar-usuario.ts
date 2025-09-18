@@ -1,14 +1,18 @@
+import { Role } from '../../enums/role';
 import { HttpRequest, HttpResponse } from '../../interfaces';
+import Cliente from '../../models/cliente-model';
 import User from '../../models/user-model';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
+import Funcionario from '../../models/funcionario-model';
+import Gerente from '../../models/gerente-model';
 class CriarUsuarioController {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { nome, email, senha } = httpRequest.body;
+      const { nome, email, senha, role } = httpRequest.body;
 
       // Verifica se todos os campos obrigatórios foram preenchidos
-      if (!nome || !email || !senha) {
+      if (!nome || !email || !senha || !role ) {
         return {
           statusCode: 400,
           body: { error: 'Todos os campos são obrigatórios' },
@@ -19,6 +23,13 @@ class CriarUsuarioController {
         return {
           statusCode: 400,
           body: { error: 'O nome deve ter pelo menos 3 caracteres' },
+        };
+      }
+
+      if (!Object.values(Role).includes(role)) {
+        return {
+          statusCode: 400,
+          body: { error: `A role ${role} não existem nos papeis do sistema.` },
         };
       }
 
@@ -46,7 +57,10 @@ class CriarUsuarioController {
         nome,
         email,
         senha: senhaCriptografada,
+        role
       });
+
+      await this.criarPerfil(usuario.id, role, nome);
 
       return {
         statusCode: 201,
@@ -57,6 +71,26 @@ class CriarUsuarioController {
         statusCode: 500,
         body: { error: error.message },
       };
+    }
+  }
+
+  async criarPerfil(userId: number, role: string, nome: string) {
+    if(role === Role.CLIENTE) {
+      await Cliente.create({
+        nome,
+        userId
+      });
+    } else if(role === Role.FUNCIONARIO) {
+      await Funcionario.create({
+        nome,
+        userId
+      });
+    }
+    else if(role === Role.GERENTE) {
+      await Gerente.create({
+        nome,
+        userId
+      });
     }
   }
 }
