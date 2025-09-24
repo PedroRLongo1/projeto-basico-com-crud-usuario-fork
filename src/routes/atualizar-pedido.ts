@@ -7,6 +7,6 @@ import authorizeRoles from "../middlewares/authorize-roles";
 export default (router: Router): void => {
     router.put("/pedidos/{id}",
         authMiddleware,
-        authorizeRoles(['gerente', 'funcionario']),
+        authorizeRoles(['Gerente', 'Funcionario']),
         adaptRoute(new AtualizarPedidoController()));
 };
