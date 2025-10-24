@@ -11,7 +11,7 @@
     "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "."
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
